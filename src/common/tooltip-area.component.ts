@@ -27,6 +27,7 @@ import {
         [attr.height]="dims.height"
         style="opacity: 0; cursor: 'auto';"
         (mousemove)="mouseMove($event)"
+        (mousedown)="mouseDown($event)"
         (mouseleave)="hideTooltip()"
       />
       <xhtml:ng-template #defaultTooltipTemplate let-model="model">
@@ -98,6 +99,7 @@ export class TooltipArea {
   @Input() tooltipTemplate: TemplateRef<any>;
 
   @Output() hover = new EventEmitter();
+  @Output() clicked = new EventEmitter();
 
   @ViewChild('tooltipAnchor') tooltipAnchor;
 
@@ -144,11 +146,26 @@ export class TooltipArea {
     return results;
   }
 
+  mouseDown(event) {
+    const xPos = event.offsetX - this.dims.xOffset;
+    const yPos = event.offsetY - this.dims.yOffset;
+
+    this.clicked.emit({
+      clicked: true,
+      x: xPos,
+      y: yPos,
+      xScale: this.xScale.invert(xPos),
+      yScale: this.yScale.invert(yPos)
+    });
+  }
+
   mouseMove(event) {
     const xPos = event.offsetX - this.dims.xOffset;
+    const yPos = event.offsetY - this.dims.yOffset;
 
     const closestIndex = this.findClosestPointIndex(xPos);
     const closestPoint = this.xSet[closestIndex];
+
     this.anchorPos = this.xScale(closestPoint);
     this.anchorPos = Math.max(0, this.anchorPos);
     this.anchorPos = Math.min(this.dims.width, this.anchorPos);
@@ -159,7 +176,11 @@ export class TooltipArea {
       this.renderer.invokeElementMethod(this.tooltipAnchor.nativeElement, 'dispatchEvent', [ev]);
       this.anchorOpacity = 0.7;
       this.hover.emit({
-        value: closestPoint
+        value: closestPoint,
+        x: xPos,
+        y: yPos,
+        xScale: this.xScale.invert(xPos),
+        yScale: this.yScale.invert(yPos)
       });
       this.showTooltip();
 

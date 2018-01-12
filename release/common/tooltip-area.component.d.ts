@@ -15,9 +15,11 @@ export declare class TooltipArea {
     tooltipDisabled: boolean;
     tooltipTemplate: TemplateRef<any>;
     hover: EventEmitter<{}>;
+    clicked: EventEmitter<{}>;
     tooltipAnchor: any;
     constructor(renderer: Renderer);
     getValues(xVal: any): any[];
+    mouseDown(event: any): void;
     mouseMove(event: any): void;
     findClosestPointIndex(xPos: any): number;
     showTooltip(): void;

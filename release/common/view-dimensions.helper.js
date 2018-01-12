@@ -3,6 +3,7 @@ export function calculateViewDimensions(_a) {
     var xOffset = margins[3];
     var chartWidth = width;
     var chartHeight = height - margins[0] - margins[2];
+    var yOffset = margins[0];
     if (showLegend) {
         if (legendType === 'ordinal') {
             columns -= 2;
@@ -39,7 +40,8 @@ export function calculateViewDimensions(_a) {
     return {
         width: ~~chartWidth,
         height: ~~chartHeight,
-        xOffset: ~~xOffset
+        xOffset: ~~xOffset,
+        yOffset: ~~yOffset,
     };
 }
 //# sourceMappingURL=view-dimensions.helper.js.map

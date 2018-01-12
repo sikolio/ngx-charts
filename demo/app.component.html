@@ -716,7 +716,8 @@
         [showRefLines]="showRefLines"
         [showRefLabels]="showRefLabels"
         [referenceLines]="refLines"
-        (select)="select($event)">
+        (select)="select($event)"
+        (clicked)="test($event)">
       </ngx-charts-line-chart>
       <ngx-charts-bar-vertical
         *ngIf="chartType === 'tooltip-templates'"

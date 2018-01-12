@@ -44,6 +44,7 @@ import { id } from '../utils/id';
         </svg:clipPath>
       </svg:defs>
       <svg:g [attr.transform]="transform" class="line-chart chart">
+        
         <svg:g ngx-charts-x-axis
           *ngIf="xAxis"
           [xScale]="xScale"
@@ -94,6 +95,7 @@ import { id } from '../utils/id';
               [tooltipDisabled]="tooltipDisabled"
               [tooltipTemplate]="seriesTooltipTemplate"
               (hover)="updateHoveredVertical($event)"
+              (clicked)="areaClicked($event)"
             />
 
             <svg:g *ngFor="let series of results">
@@ -189,6 +191,7 @@ export class LineChartComponent extends BaseChartComponent {
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
+  @Output() clicked: EventEmitter<any> = new EventEmitter();
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
   @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate: TemplateRef<any>;
@@ -437,6 +440,10 @@ export class LineChartComponent extends BaseChartComponent {
   updateHoveredVertical(item): void {
     this.hoveredVertical = item.value;
     this.deactivateAll();
+  }
+  
+  areaClicked(item): void {
+    this.clicked.emit(item);
   }
 
   @HostListener('mouseleave')

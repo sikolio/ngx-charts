@@ -347,6 +347,7 @@ export class AppComponent implements OnInit {
       };
 
       this.bubble = [...this.bubble, bubbleEntry];
+      console.log(this.bubble);
 
       this.statusData = this.getStatusData();
     }

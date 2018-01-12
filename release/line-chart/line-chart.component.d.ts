@@ -32,6 +32,7 @@ export declare class LineChartComponent extends BaseChartComponent {
     yScaleMax: number;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
+    clicked: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;
     seriesTooltipTemplate: TemplateRef<any>;
     dims: ViewDimensions;
@@ -73,6 +74,7 @@ export declare class LineChartComponent extends BaseChartComponent {
     isDate(value: any): boolean;
     updateDomain(domain: any): void;
     updateHoveredVertical(item: any): void;
+    areaClicked(item: any): void;
     hideCircles(): void;
     onClick(data: any, series?: any): void;
     trackBy(index: any, item: any): string;

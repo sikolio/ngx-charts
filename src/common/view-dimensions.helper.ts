@@ -11,7 +11,8 @@ export function calculateViewDimensions({
   let xOffset = margins[3];
   let chartWidth = width;
   let chartHeight = height - margins[0] - margins[2];
-
+  const yOffset = margins[0];
+  
   if (showLegend) {
     if (legendType === 'ordinal') {
       columns -= 2;
@@ -55,6 +56,7 @@ export function calculateViewDimensions({
   return {
     width: ~~chartWidth,
     height: ~~chartHeight,
-    xOffset: ~~xOffset
+    xOffset: ~~xOffset,
+    yOffset: ~~yOffset,
   };
 }
